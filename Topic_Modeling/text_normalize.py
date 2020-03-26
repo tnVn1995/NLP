@@ -4,7 +4,7 @@ import nltk
 from bs4 import BeautifulSoup
 def strip_html_tags(text):
     soup = BeautifulSoup(text, "html.parser")
-    [s.extract() for s in soup(['iframe', 'script'])]
+    # [s.extract() for s in soup(['iframe', 'script'])]
     stripped_text = soup.get_text()
     stripped_text = re.sub(r'[\r|\n|\r\n]+', '\n', stripped_text)
     return stripped_text
@@ -170,7 +170,7 @@ def simple_stemmer(text):
     return text
 ## Lemmatization
 import spacy
-nlp = spacy.load('en')
+nlp = spacy.load('en_core_web_sm')
 text = 'My system keeps crashing his crashed yesterday, ours crashes daily'
 def lemmatize_text(text):
     text = nlp(text)
@@ -197,10 +197,10 @@ def remove_stopwords(text, stopword_list, is_lower_case=False):
 
 
 
-def normalize_corpus(corpus, html_stripping=True, contraction_expansion=True,
-                     accented_char_removal=True, text_lower_case=True,
-                     text_lemmatization=True, text_stemming=False, special_char_removal=True,
-                     stopword_removal=True, stopwords=stopword_list, remove_digits=True):
+def normalize_corpus(corpus: List[str], html_stripping: bool=True, contraction_expansion: bool=True,
+                     accented_char_removal: bool=True, text_lower_case: bool=True,
+                     text_lemmatization: bool=True, text_stemming: bool=False, special_char_removal: bool=True,
+                     stopword_removal: bool=True, stopwords:List[str]=stopword_list, remove_digits:: bool=True):
     normalized_corpus = []
     # normalize each document in the corpus
     for doc in corpus:
